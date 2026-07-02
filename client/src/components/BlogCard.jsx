@@ -1,15 +1,38 @@
+import { Link } from "react-router-dom";
 import "../styles/blogcard.css";
 
-function BlogCard({ title, description }) {
+function BlogCard({ blog }) {
   return (
     <div className="blog-card">
-      <div className="blog-image"></div>
 
-      <h3>{title}</h3>
+      <img
+        src={blog.image}
+        alt={blog.title}
+        className="blog-image"
+      />
 
-      <p>{description}</p>
+      <span className="category">
+        {blog.category}
+      </span>
 
-      <button>Read More</button>
+      <h3>{blog.title}</h3>
+
+      <p>{blog.description}</p>
+
+      <small>
+        👤 {blog.author}
+      </small>
+
+      <br />
+
+      <small>
+        📅 {blog.date}
+      </small>
+
+      <Link to={`/blog/${blog.id}`}>
+        <button>Read More →</button>
+      </Link>
+
     </div>
   );
 }

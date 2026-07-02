@@ -1,8 +1,9 @@
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
 import Categories from "../components/Categories";
-import blogs from "../data/blogs";
 import Footer from "../components/Footer";
+
+import blogs from "../data/blogs";
 
 import "../styles/home.css";
 
@@ -18,17 +19,17 @@ function Home() {
           {blogs.map((blog) => (
             <BlogCard
               key={blog.id}
-              title={blog.title}
-              description={blog.description}
+              blog={blog}
             />
           ))}
         </div>
       </section>
 
       <Categories />
+
+      <Footer />
     </div>
   );
 }
 
 export default Home;
-<Footer />
