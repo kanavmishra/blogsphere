@@ -1,34 +1,49 @@
+import { useState } from "react";
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
-import Categories from "../components/Categories";
-import Footer from "../components/Footer";
-
 import blogs from "../data/blogs";
 
-import "../styles/home.css";
-
 function Home() {
+  const [search, setSearch] = useState("");
+
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div className="home">
+    <>
       <Hero />
 
-      <section className="featured-section">
-        <h2>Featured Blogs</h2>
+      <section className="max-w-7xl mx-auto px-6 py-16">
 
-        <div className="blog-grid">
-          {blogs.map((blog) => (
-            <BlogCard
-              key={blog.id}
-              blog={blog}
-            />
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-4xl font-bold">
+            Featured Blogs
+          </h2>
+
+          <input
+            type="text"
+            placeholder="Search blogs..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border border-gray-300 rounded-lg px-4 py-2 w-72 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredBlogs.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
+
+        {filteredBlogs.length === 0 && (
+          <p className="text-center text-gray-500 mt-10">
+            No blogs found.
+          </p>
+        )}
+
       </section>
-
-      <Categories />
-
-      <Footer />
-    </div>
+    </>
   );
 }
 
