@@ -2,14 +2,13 @@
 client/node_modules/
 server/node_modules/
 
-# Environment files
+# Environment variables
 server/.env
 .env
 
-# Build
+# Build folders
 client/dist/
 server/dist/
-dist/
 
 # Logs
 *.log

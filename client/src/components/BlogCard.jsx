@@ -24,21 +24,26 @@ function BlogCard({ blog }) {
           {blog.title}
         </h2>
 
-        {/* Description */}
+        {/* Content Preview */}
         <p className="text-gray-600 mt-3 line-clamp-3">
-          {blog.description}
+          {blog.content}
         </p>
 
         {/* Footer */}
         <div className="flex justify-between items-center mt-6">
 
           <div>
-            <p className="font-semibold">{blog.author}</p>
-            <p className="text-sm text-gray-500">5 min read</p>
+            <p className="font-semibold">
+              {blog.author?.name}
+            </p>
+
+            <p className="text-sm text-gray-500">
+              5 min read
+            </p>
           </div>
 
           <Link
-            to={`/blog/${blog.id}`}
+            to={`/blog/${blog._id}`}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Read More

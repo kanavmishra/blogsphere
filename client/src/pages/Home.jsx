@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
-import blogs from "../data/blogs";
+import API from "../services/api";
 
 function Home() {
   const [search, setSearch] = useState("");
+const [blogs, setBlogs] = useState([]);
 
-  const filteredBlogs = blogs.filter((blog) =>
-    blog.title.toLowerCase().includes(search.toLowerCase())
-  );
+useEffect(() => {
+  fetchBlogs();
+}, []);
+
+const fetchBlogs = async () => {
+  try {
+    const res = await API.get("/blogs");
+    setBlogs(res.data.blogs);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const filteredBlogs = blogs.filter((blog) =>
+  blog.title.toLowerCase().includes(search.toLowerCase())
+);
 
   return (
     <>
@@ -32,7 +46,7 @@ function Home() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredBlogs.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} />
+            <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
 

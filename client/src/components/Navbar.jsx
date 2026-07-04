@@ -1,6 +1,19 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    alert("Logged out successfully!");
+
+    navigate("/login");
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
@@ -56,37 +69,49 @@ function Navbar() {
             About
           </NavLink>
 
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive
-                ? "text-blue-600 font-semibold"
-                : "hover:text-blue-600"
-            }
-          >
-            Dashboard
-          </NavLink>
+          {token && (
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-semibold"
+                  : "hover:text-blue-600"
+              }
+            >
+              Dashboard
+            </NavLink>
+          )}
 
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-3">
 
-          <Link
-            to="/login"
-            className="border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+        {!token ? (
+          <div className="flex gap-3">
+
+            <Link
+              to="/login"
+              className="border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+            >
+              Login
+            </Link>
+
+            <Link
+              to="/register"
+              className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Get Started
+            </Link>
+
+          </div>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition"
           >
-            Login
-          </Link>
-
-          <Link
-            to="/register"
-            className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Get Started
-          </Link>
-
-        </div>
+            Logout
+          </button>
+        )}
 
       </div>
     </nav>
