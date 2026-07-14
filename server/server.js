@@ -17,13 +17,29 @@ import aiRoutes from "./routes/aiRoutes.js";
 // Connect to MongoDB
 connectDB();
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://blogsphere-cgk6-six.vercel.app",
+  "http://localhost:5173"
+].filter(Boolean);
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    const isAllowed = allowedOrigins.includes(origin) || origin.endsWith(".vercel.app") || origin.startsWith("http://localhost:");
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(null, false); // Allow request, let client handle CORS or fallback
+    }
+  },
+  credentials: true
+};
+
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true
-}));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
@@ -49,9 +65,8 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    ...corsOptions,
+    methods: ["GET", "POST", "PUT", "DELETE"]
   },
 });
 
