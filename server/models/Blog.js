@@ -27,6 +27,33 @@ const blogSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
+    likes: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+],
+
+// ❤️ Users who bookmarked this blog
+bookmarks: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+],
+
+// 👁 Number of views
+views: {
+  type: Number,
+  default: 0,
+},
+
+status: {
+  type: String,
+  enum: ["published", "draft"],
+  default: "published",
+},
   },
   {
     timestamps: true,

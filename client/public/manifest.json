@@ -1,0 +1,17 @@
+{
+  "name": "BlogSphere Portal",
+  "short_name": "BlogSphere",
+  "description": "Premium developer blogging platform with real-time notifications and AI assistance.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#120B24",
+  "theme_color": "#5B2EFF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ]
+}

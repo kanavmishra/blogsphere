@@ -1,1 +1,126 @@
 @import "tailwindcss";
+
+@theme {
+  --font-serif: "Poppins", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-card: var(--brand-card);
+  --color-brand-border: var(--brand-border);
+  --color-brand-text: var(--brand-text);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-glass: var(--brand-glass);
+  
+  --color-purple-primary: #5B2EFF;
+  --color-purple-deep: #2D1B69;
+  --color-purple-lilac: #D8C7FF;
+  --color-rose-gold: #E6B7A9;
+}
+
+:root {
+  --brand-bg: #FAF7FF;
+  --brand-card: #FFFFFF;
+  --brand-border: #EAE2FA;
+  --brand-text: #120A24;
+  --brand-muted: #6E5B8E;
+  --brand-glass: rgba(255, 255, 255, 0.7);
+}
+
+.dark {
+  --brand-bg: #120A24;
+  --brand-card: #1B1135;
+  --brand-border: #2E1E54;
+  --brand-text: #FAF7FF;
+  --brand-muted: #A692C4;
+  --brand-glass: rgba(27, 17, 53, 0.6);
+}
+
+@layer utilities {
+  .glass {
+    background: var(--brand-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--brand-border);
+  }
+  .glass-card {
+    background: var(--brand-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--brand-border);
+  }
+  
+  /* Scroll reveal, page entry animations */
+  .animate-reveal {
+    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--brand-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D8C7FF;
+}
+
+/* Float animations for background blobs */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+@keyframes float-delay {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+.animate-float-1 {
+  animation: float-slow 10s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-delay 12s ease-in-out infinite;
+}
+
+/* Reveal animation */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Smooth active route styling transition */
+.nav-transition {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Premium royal purple button hover glow and rose gold highlight */
+.glow-button-purple {
+  box-shadow: 0 4px 20px rgba(91, 46, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-button-purple:hover {
+  box-shadow: 0 6px 24px rgba(91, 46, 255, 0.35);
+  transform: translateY(-2px);
+}
