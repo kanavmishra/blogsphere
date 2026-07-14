@@ -29,7 +29,7 @@ export function SocketProvider({ children }) {
 
     newSocket.on("newNotification", (notification) => {
       setUnreadCount((prev) => prev + 1);
-      
+
       let message = "You have a new notification";
       if (notification.type === "like") {
         message = `❤️ ${notification.sender.name} liked your article: "${notification.blog.title}"`;
